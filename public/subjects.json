@@ -1,0 +1,18 @@
+{
+  "2024": {
+    "B.Com": {
+      "Sem 1": [
+        { "code": "BC101", "name": "Financial Accounting", "maxMarks": 100 },
+        { "code": "BC102", "name": "Business Management", "maxMarks": 100 }
+      ],
+      "Sem 2": [
+        { "code": "BC201", "name": "Corporate Accounting", "maxMarks": 100 }
+      ]
+    },
+    "B.Sc": {
+      "Sem 1": [
+        { "code": "BS101", "name": "Physics I", "maxMarks": 100 }
+      ]
+    }
+  }
+}

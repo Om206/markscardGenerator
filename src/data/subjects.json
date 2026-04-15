@@ -1,0 +1,43 @@
+{
+  "2024": {
+    "B.Com": {
+      "Sem 1": [
+        { "code": "BAX4ENGCT0121", "name": "Financial Accounting", "maxMarks": 100,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true },
+        { "code": "BAX4ENGCT0122", "name": "Business Management", "maxMarks": 100 ,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true}
+      ],
+      "Sem 2": [
+        { "code": "BAX4ENGCT0123", "name": "Corporate Accounting", "maxMarks": 100 ,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true}
+      ]
+    },
+    "B.Sc": {
+      "Sem 1": [
+        { "code": "BAX4ENGCT0124", "name": "Physics I", "maxMarks": 100,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true }
+      ]
+    }
+  },
+  "2025": {
+    "B.Com": {
+      "Sem 1": [
+        { "code": "BAX4ENGCT0125", "name": "Financial Accounting", "maxMarks": 100,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true },
+        { "code": "BAX4ENGCT0126", "name": "Business Management", "maxMarks": 100 , "minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true} 
+      ],
+      "Sem 2": [
+        { "code": "BAX4ENGCT0127", "name": "Corporate Accounting", "maxMarks": 100 ,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true}
+      ]
+    },
+    "B.Sc": {
+      "Sem 1": [
+        { "code": "BAX4ENGCT0128", "name": "Physics I", "maxMarks": 100,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true }
+      ]
+    },
+    "B.E": {
+      "Sem 1": [
+        { "code": "BAX4ENGCT0125", "name": "CSE", "maxMarks": 100,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true },
+        { "code": "BAX4ENGCT0126", "name": "EC", "maxMarks": 100 , "minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true} 
+      ],
+      "Sem 2": [
+        { "code": "BAX4ENGCT0127", "name": "ISE", "maxMarks": 100 ,"minMarks":40,"secMarks":0,"grade":0,"credits":3,"obtMarks":0,"creditPoints":0,"iaMarks":0,"letterGrade":"A","status":true}
+      ]
+    }
+  }
+}
