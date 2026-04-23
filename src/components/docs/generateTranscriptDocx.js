@@ -7,7 +7,6 @@ import leftLogo from "../../assets/leftLogo.jpg";
 import rightLogo from "../../assets/rightLogo.jpg";
  
 
-// Helper to convert image URL to Base64 (Required for docx library)
 const getBase64FromUrl = async (url) => {
   const data = await fetch(url);
   const blob = await data.blob();
@@ -18,25 +17,18 @@ const getBase64FromUrl = async (url) => {
   });
 };
 
-export const generateUniversityDoc = async (studentInfo, selection, semesterData) => {
-  // Replace these with your actual local logo paths
-  const leftLogoUrl = leftLogo; 
-  const rightLogoUrl = rightLogo;
-  const {totals} = semesterData.totals
-  console.log("Semester " , semesterData.totals.totalMarks)  
-  console.log(totals)
+export const generateTranscript = async (studentInfo, selection, semesterData) => {
+    const leftLogoUrl = leftLogo;
+    const rightLogoUrl = rightLogo;
+    const leftLogoBase64 = await getBase64FromUrl(leftLogoUrl);
+    const rightLogoBase64 = await getBase64FromUrl(rightLogoUrl);
 
-  const leftLogoBase64 = await getBase64FromUrl(leftLogoUrl);
-  const rightLogoBase64 = await getBase64FromUrl(rightLogoUrl);
-
-  
-  const doc = new Document({
-    sections: [{
-      properties: {
+    const doc = new Document({
+        sections:[{
+            properties: {
         page: { margin: { top: 720, right: 720, bottom: 720, left: 720 } }
       },
       children: [
-        // --- HEADER TABLE ---
         new Table({
           width: { size: 100, type: WidthType.PERCENTAGE },
           borders: {
@@ -126,9 +118,7 @@ export const generateUniversityDoc = async (studentInfo, selection, semesterData
           ],
         }),
 
-        // --- STUDENT INFO SECTION ---
-        new Paragraph({ text: "", spacing: { before: 200 } }), // Spacer
-        
+        new Paragraph({text:"", spacing:{before:200}}),
         new Table({
           width:{size: 100, type: WidthType.PERCENTAGE},
           spacing:{before: 300},
@@ -151,75 +141,9 @@ export const generateUniversityDoc = async (studentInfo, selection, semesterData
             }),
           ]
         }),
-        new Paragraph({ text: "", spacing: { before: 200 } }), // Spacer
-        // --- MARKS TABLE ---
-        new Table({
-          width: { size: 100, type: WidthType.PERCENTAGE },
-          spacing: { before: 300 },
-          rows: [
-            new TableRow({
-              children: [
-                new TableCell({ children: [new Paragraph({ text: "Subject", bold: true,alignment:"center" })],width:{size:20, type: WidthType.PERCENTAGE}, }),
-                new TableCell({ children: [new Paragraph({ text: "Code", bold: true,alignment:"center"})],width:{size:20, type: WidthType.PERCENTAGE} }),
-                new TableCell({ children: [new Paragraph({ text: "Max Marks", bold: true })] }),
-                new TableCell({ children: [new Paragraph({ text: "Min Marks", bold: true })] }),
-                new TableCell({ children: [new Paragraph({ text: "Sec Marks", bold: true })] }),
-                new TableCell({ children: [new Paragraph({ text: "IA Marks", bold: true })] }),
-                new TableCell({ children: [new Paragraph({ text: "Obtained Marks", bold: true })] }),
-                new TableCell({ children: [new Paragraph({ text: "Credits", bold: true })] }),
-                new TableCell({ children: [new Paragraph({ text: "Grade Points", bold: true })] }),
-                new TableCell({ children: [new Paragraph({ text: "Credit Points", bold: true })] }),
-                new TableCell({ children: [new Paragraph({ text: "Grade", bold: true })] }),
-              ],
-            }),
-            ...semesterData.subjects.map(sub => new TableRow({
-              children: [
-                new TableCell({ children: [new Paragraph({text:(sub.name || ""),bold:true,alignment:"center"})] }),
-                new TableCell({ children: [new Paragraph({text:(sub.code || ""),bold:true,alignment:"center"})] }),
-                new TableCell({ children: [new Paragraph(sub.maxMarks?.toString() || "")] }),
-                new TableCell({ children: [new Paragraph(sub.minMarks?.toString() || "")] }),
-                new TableCell({ children: [new Paragraph(sub.iaMarks?.toString() || "")] }),
-                new TableCell({ children: [new Paragraph(sub.secMarks?.toString() || "")] }),
-                new TableCell({ children: [new Paragraph(sub.obtMarks?.toString() || "")] }),
-                new TableCell({ children: [new Paragraph(sub.credits?.toString() || "")] }),
-                new TableCell({ children: [new Paragraph(sub.grade?.toString() || "")] }),
-                new TableCell({ children: [new Paragraph(sub.creditPoints?.toString() || "")] }),
-                new TableCell({ children: [new Paragraph(sub.letterGrade?.toString() || "")] }),
-              ],
-            })),
-          new TableRow({
-            children:[
-              
-              new TableCell({children:[new Paragraph({children:[ new TextRun({text:"Total",bold:true})],alignment:"center"})],columnSpan:6}),
-              new TableCell({children:[new Paragraph({children:[ new TextRun({text:`${semesterData.totals.totalMarks}`,bold:true})]})]}),
-              new TableCell({children:[new Paragraph({children:[ new TextRun({text:`${semesterData.totals.totalCredits}`,bold:true})]})]}),
-              new TableCell({children:[new Paragraph({text:""})]}),
-              new TableCell({children:[new Paragraph({children:[ new TextRun({text:`${semesterData.totals.totalCreditPoints}`,bold:true})]})]}),
-              new TableCell({children:[new Paragraph({text:""})]}),
-            ]
-          })
-          ],
-        }),
-         
-         new Paragraph({ text: "", spacing: { before: 200 } }),
-         new Paragraph({text:`Total  ${semesterData.totals.totalMarks}`}),
-         new Paragraph({text:`Total  ${semesterData.totals.sgpa}`}),
-         new Paragraph({text:`Total  ${semesterData.totals.totalCreditPoints}`}),
-         new Paragraph({text:`Total  ${semesterData.totals.totalCredits}`}),
-        // --- TOTALS FOOTER ---
-
-        new Paragraph({
-          alignment: AlignmentType.RIGHT,
-          spacing: { before: 400 },
-          children: [
-            new TextRun({ text: `SGPA: ${semesterData.totals.sgpa}`, bold: true, size: 24 }),
-          ],
-        }),
-      ],
-    }],
-  });
-
-  Packer.toBlob(doc).then((blob) => {
-    saveAs(blob, `${studentInfo.rollNo}_MarksCard.docx`);
-  });
-};
+        new Paragraph({ text: "", spacing: { before: 200 } }),
+        
+      ]
+        }]
+    })
+}
