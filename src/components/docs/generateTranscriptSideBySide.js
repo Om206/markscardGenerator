@@ -222,7 +222,7 @@ function buildSemesterPair(leftKey, leftData, rightKey, rightData) {
 }
 
 // ─── Main export ───────────────────────────────────────────────────────────────
-export const generateTranscriptSideBySideDoc = async (studentInfo, selection, semesterData) => {
+export const generateTranscriptSideBySideDoc = async (studentInfo, selection, semesterData,cgpa) => {
   const leftLogoBase64  = await getBase64FromUrl(leftLogo);
   const rightLogoBase64 = await getBase64FromUrl(rightLogo);
 
@@ -355,7 +355,9 @@ export const generateTranscriptSideBySideDoc = async (studentInfo, selection, se
         : []
       ),
     ]),
+,   
 
+    para([run("CGPA: ",{size:20}),run(cgpa,{bold:true,size:20}),run("/10",{size:20})]),
     // ══ FOOTER ════════════════════════════════════════════════════════════════
     new Paragraph({
       alignment: AlignmentType.RIGHT,

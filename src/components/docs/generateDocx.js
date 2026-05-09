@@ -259,6 +259,17 @@ export const generateUniversityDoc = async (studentInfo, selection, semesterData
             new TextRun({ text: `SGPA: ${semesterData.totals.sgpa}`, bold: true, size: 24 }),
           ],
         }),
+
+        new Paragraph({
+              alignment: AlignmentType.RIGHT,
+              spacing: { before: 400 },
+              children: [new TextRun({ text: "REGISTRAR (EVALUATION)", bold: true, size: 20, font: "Times New Roman" })],
+            }),
+            new Paragraph({
+              alignment: AlignmentType.RIGHT,
+              children: [new TextRun({ text: "GULBARGA UNIVERSITY, KALABURAGI", bold: true, size: 20, font: "Times New Roman" })],
+            }),
+          
       ],
     }],
   });
