@@ -53,11 +53,14 @@ const BORDER_NONE = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
 const CELL_MARGINS = { top: 80, bottom: 80, left: 120, right: 120 };
 
 // ─── Paragraph helpers ─────────────────────────────────────────────────────────
-const p = (text, opts = {}) => new Paragraph({
+const p = (text, opts = {}) => {
+  const isKannada = /[\u0C80-\u0CFF]/.test(String(text));
+  return new Paragraph({
+  
   alignment: opts.center ? AlignmentType.CENTER : opts.right ? AlignmentType.RIGHT : AlignmentType.LEFT,
   spacing: opts.spacing,
-  children: [new TextRun({ text: String(text ?? ""), bold: !!opts.bold, size: opts.size })],
-});
+  children: [new TextRun({ text: String(text ?? ""), bold: !!opts.bold, size: opts.size,font: isKannada? "Nirmala UI" : "Times New Roman" })],
+})};
 
 const cell = (children, width, opts = {}) => new TableCell({
   width: { size: width, type: WidthType.DXA },
@@ -169,6 +172,14 @@ export const generateUniversityDoc = async (studentInfo, selection, semesterData
                 cell(p(selection.course[0], { bold: true }), INFO_COL),
                 cell(p("Sem"),                   INFO_COL),
                 cell(p(selection.sem[0], { bold: true }),   INFO_COL),
+              ],
+            }),
+            new TableRow({
+              children: [
+                cell(p("College Name and Code"),                INFO_COL),
+                cell(p(studentInfo.college, { bold: true }), INFO_COL),
+                cell(p("Exam Month and Year"),                   INFO_COL),
+                cell(p(studentInfo.examMonthYear, { bold: true }),   INFO_COL),
               ],
             }),
           ],
