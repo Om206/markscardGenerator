@@ -8,6 +8,8 @@ import subjectData from "@/data/subjects";
 import { generateUniversityDoc } from "../docs/generateDocx";
 import TopBar from "../newDesign/TopBar";
 import RadioButton from "../helper/RadioButton";
+import { generateTranscript } from "../docs/generateTranscriptDocx";
+import { generateTranscriptSideBySideDoc } from "../docs/generateTranscriptSideBySide";
 
 /* ── Injected global styles ─────────────────────────────────────────── */
 const GlobalStyles = () => (
@@ -226,8 +228,10 @@ const GlobalStyles = () => (
 const LeftPage = () => {
   const [mode, setMode] = useState("1");
   const [selection, setSelection] = useState({ year: [], course: [], sem: [] });
-  const [studentInfo, setStudentInfo] = useState({ name: "", rollNo: "", college: "", examMonthYear: "" });
+  const [studentInfo, setStudentInfo] = useState({ name: "", rollNo: "", college: "", examMonthYear: "",durationOfCourse:"",mediumOfInst:"" });
   const [allSemestersData, setAllSemestersData] = useState({});
+  
+  const [cgpa,setCgpa] = useState(0);
 
   const handleStudent = (e) => {
     const { name, value } = e.target;
@@ -263,6 +267,36 @@ const LeftPage = () => {
       }
     }
   }, [selection]);
+
+  const handleDownloadTranscript = async () =>{
+    console.log(allSemestersData);
+    
+    if(Object.keys(allSemestersData).length > 0)
+    {
+      try {
+          await generateTranscriptSideBySideDoc(studentInfo,selection, allSemestersData,cgpa)
+      } catch (error) {
+        console.error("Error generating docx: ", error);
+        alert("Failed to generate document.")
+      }
+    }
+    else{
+      alert("Enter the subject detilas with marks for each sem")
+      return;
+    }
+    console.log("Transcript Generated Succuesfully ")
+    // console.log(" DATA ----")
+    // Object.entries(allSemestersData).forEach(([semName, semData])=> {
+    //   console.log(`-----${semName}--------`);
+    //   console.log('semData');
+    //   semData.subjects.map((data)=> (
+    //     console.log(data.name)
+    //   ))
+    // })
+
+
+
+  }
 
   const handleDownload = async () => {
     const currentSem = selection.sem[0];
@@ -324,7 +358,7 @@ const LeftPage = () => {
                   <span className="lp-step">2</span>
                   Student Information
                 </div>
-                <UserDetails studentInfo={studentInfo} handleStudent={handleStudent} />
+                <UserDetails studentInfo={studentInfo} handleStudent={handleStudent} mode={mode} />
               </Box>
 
               {/* ── Subject Selection ── */}
@@ -333,7 +367,7 @@ const LeftPage = () => {
                   <span className="lp-step">3</span>
                   {isTranscript ? 'Year & Course' : 'Year, Course & Semester'}
                 </div>
-                <Selectsubject selection={selection} setSelection={setSelection} />
+                <Selectsubject selection={selection} setSelection={setSelection} mode={mode} />
               </Box>
 
               {/* ── Marks / Transcript ── */}
@@ -346,6 +380,8 @@ const LeftPage = () => {
                   <TranscriptView
                     allData={allSemestersData}
                     setAllData={setAllSemestersData}
+                    cgpaM = {cgpa}
+                    setCgpaM = {setCgpa}
                   />
                 ) : (
                   <MarksCardView
@@ -358,7 +394,7 @@ const LeftPage = () => {
 
               {/* ── Generate Button ── */}
               <Box className="lp-animate" pt={2} pb={6}>
-                <button className="lp-btn" onClick={handleDownload}>
+                <button className="lp-btn" onClick={mode === '1' ? handleDownload : handleDownloadTranscript}>
                   <span className="lp-btn-icon">
                     {isTranscript ? '📋' : '📄'}
                   </span>

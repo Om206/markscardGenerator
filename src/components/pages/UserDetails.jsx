@@ -2,13 +2,15 @@ import { SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 
 const fields = [
-  { label: "Student Name",       placeholder: "Enter full name",               type: "text", name: "name"           },
-  { label: "Registration No.",   placeholder: "e.g. 1BG22CS001",               type: "text", name: "rollNo"         },
-  { label: "College Name",       placeholder: "Enter institution name",         type: "text", name: "college"        },
-  { label: "Exam Month & Year",  placeholder: "e.g. May 2024",                 type: "text", name: "examMonthYear"  },
+  { label: "Student Name",       placeholder: "Enter full name",               type: "text", name: "name"           , modeType:3},
+  { label: "Registration No.",   placeholder: "e.g. 1BG22CS001",               type: "text", name: "rollNo"         , modeType:3},
+  { label: "College Name & Code",       placeholder: "Enter institution name and code",         type: "text", name: "college"        , modeType:3},
+  { label: "Exam Month & Year Passing",  placeholder: "e.g. May 2024",                 type: "text", name: "examMonthYear"  , modeType:3},
+  { label: "Duration Of Course",  placeholder: "e.g FULL TIME THREE YEARS-SEMSTER",                 type: "text", name: "durationOfCourse"  , modeType:2},
+  { label: "Meduim of Instruction",  placeholder: "e.g. English/Kannada",                 type: "text", name: "mediumOfInst"  , modeType:2},
 ]
 
-const UserDetails = ({ studentInfo, handleStudent }) => {
+const UserDetails = ({ studentInfo, handleStudent,mode }) => {
   return (
     <>
       <style>{`
@@ -80,8 +82,8 @@ const UserDetails = ({ studentInfo, handleStudent }) => {
       `}</style>
 
       <SimpleGrid columns={{ base: 1, sm: 2 }} gap={{ base: 4, md: 5 }}>
-        {fields.map(({ label, placeholder, type, name }) => (
-          <div key={name} className="ud-field">
+        {fields.map(({ label, placeholder, type, name,modeType }) => (
+         (mode & modeType &&  <div key={name} className="ud-field">
             <label className="ud-label" htmlFor={name}>{label}</label>
             <div className="ud-input-wrap">
               <input
@@ -95,7 +97,7 @@ const UserDetails = ({ studentInfo, handleStudent }) => {
                 autoComplete="off"
               />
             </div>
-          </div>
+          </div> )
         ))}
       </SimpleGrid>
     </>

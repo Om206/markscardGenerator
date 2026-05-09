@@ -1,10 +1,10 @@
-"use client"
+
 import { Portal, Select, createListCollection } from "@chakra-ui/react"
 import subjects from "@/data/subjects.json";
 import SelectMenu from "../helper/SelectMenu";
 import { useMemo } from "react";
 
-const Selectsubject = ({ selection, setSelection }) => {
+const Selectsubject = ({ selection, setSelection,mode }) => {
 
   const yearCollection = useMemo(() => createListCollection({
     items: Object.keys(subjects).map(y => ({ label: y, value: y }))
@@ -74,7 +74,7 @@ const Selectsubject = ({ selection, setSelection }) => {
           />
         </div>
 
-        <div className={!selection.course[0] ? 'ss-locked' : ''}>
+        {mode == 1 && <div className={!selection.course[0] ? 'ss-locked' : ''}>
           <SelectMenu
             value={selection.sem}
             collection={semesterCollection}
@@ -82,7 +82,7 @@ const Selectsubject = ({ selection, setSelection }) => {
             label="Semester"
             placeholder="Select semester"
           />
-        </div>
+        </div>}
       </div>
     </>
   )

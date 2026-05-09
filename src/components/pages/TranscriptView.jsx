@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Subjects from "./Subjects";
 import { VStack, Box, Text, SimpleGrid } from "@chakra-ui/react";
 
-const TranscriptView = ({ allData, setAllData }) => {
+const TranscriptView = ({ allData, setAllData,cgpaM, setCgpaM }) => {
   const semesterKeys = Object.keys(allData);
 
   const cgpa = useMemo(() => {
@@ -10,7 +10,9 @@ const TranscriptView = ({ allData, setAllData }) => {
     if (validSems.length === 0) return "—";
     const sumTotalCP = validSems.reduce((acc, s) => acc + parseFloat(s.totals.totalCreditPoints), 0);
     const sumTotalCredit = validSems.reduce((acc, s) => acc + parseFloat(s.totals.totalCredits), 0);
-    return (sumTotalCP /sumTotalCredit).toFixed(2);
+    const c = (sumTotalCP /sumTotalCredit).toFixed(2);
+    setCgpaM(c); 
+    return c;
   }, [allData]);
 
   // ── fix: forward BOTH updatedSubjects AND updatedTotals ──
